@@ -34,7 +34,8 @@ services:
       cpu: 512
       memory: 512
       environment: 
-        - DB_HOST=<hostname:mariadb>
+        - DB_HOST=<hostname:mariadb>,<hostport:3306>,<hosttype:network>
+
       load_balancer:
         tenancy: dedicated
         type: webserver
