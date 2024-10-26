@@ -10,7 +10,18 @@ services:
       memory: 512
       environment: 
         - DB_HOST=<hostname:mariadb>
-
+      network:
+        public: true  # Indicates this service is accessible in public subnets
+      ports:
+        directus-port:   # Define a unique port name
+          port: 8055
+          protocol: http
+          public: true
+          healthcheck:
+            timeout: 10
+            interval: 120
+            path: /
+            retries: 3
       load_balancer:
         tenancy: dedicated
         type: webserver
@@ -37,16 +48,21 @@ services:
       - DB_PORT=3306
       
   mariadb:
-    # We use a mariadb image which supports both amd64 & arm64 architecture
     image: mariadb:10.5
     container_name: mariadb
-    # If you really want to use MySQL, uncomment the following line
-    #image: mysql:8.0.27
-    #command: '--default-authentication-plugin=mysql_native_password'
     volumes:
       - db_data:/var/lib/mysql
     restart: always
     x-tinkr:
+      cpu: 512
+      memory: 512
+      network:
+        public: false  # Indicates this service is accessible in private subnets
+      ports:
+        mariadb-port:
+          port: 3306
+          protocol: tcp
+          public: false
       load_balancer:
         tenancy: dedicated
         type: network
