@@ -22,17 +22,6 @@ services:
             interval: 120
             path: /
             retries: 3
-      load_balancer:
-        tenancy: dedicated
-        type: webserver
-        healthcheck:
-          timeout: 10
-          healthy-threshold: 3
-          unhealthy-threshold: 5
-          port: 80
-          path: /
-          interval: 120
-          success_code: "301-302"
     networks:
       - database
     environment:
@@ -63,10 +52,6 @@ services:
           port: 3306
           protocol: tcp
           public: false
-      load_balancer:
-        tenancy: dedicated
-        type: network
-        network: private
     environment:
       - MYSQL_ROOT_PASSWORD=directus
       - MYSQL_DATABASE=directus
