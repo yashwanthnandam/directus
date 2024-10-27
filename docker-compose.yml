@@ -9,7 +9,7 @@ services:
       cpu: 512
       memory: 512
       environment: 
-        - DB_HOST=<hostname:mariadb>
+        - DB_HOST=<hostname:mariadb-port>
       network:
         public: true  # Indicates this service is accessible in public subnets
       ports:
