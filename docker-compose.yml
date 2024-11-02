@@ -9,7 +9,7 @@ services:
       cpu: 512
       memory: 512
       environment: 
-        - DB_HOST=<hostname:mariadb-3306>
+        - DB_HOST=<hostname:mariadb>
       network:
         public: true  # Indicates this service is accessible in public subnets
       ports:
@@ -19,6 +19,7 @@ services:
           public: true
           healthcheck:
             timeout: 10
+            success_code: "301-302"
             interval: 120
             path: /
             retries: 3
@@ -48,7 +49,7 @@ services:
       network:
         public: false  # Indicates this service is accessible in private subnets
       ports:
-        mariadb-3306:
+        mariadb:
           port: 3306
           protocol: tcp
           public: false
