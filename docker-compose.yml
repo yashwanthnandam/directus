@@ -8,6 +8,8 @@ services:
     x-tinkr:
       cpu: 768
       memory: 960
+      depends_on:
+        - mariadb
       environment: 
         - DB_HOST=<hostname:mariadb>
       network:
